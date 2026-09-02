@@ -191,3 +191,4 @@ ewm-jepa/
 - **Uncertainty reduction as primary reinforcer:** A. Lincoln, *Academia
   Neuroscience and Brain Research*, Vol. 2, 2026
   ([doi](https://doi.org/10.20935/AcadNeurosci8451))
+- [hllset-cortex](https://github.com/alexmy21/DeepSeek-OCR/tree/feature/hllset-cortex-git/hllset_cortex)
