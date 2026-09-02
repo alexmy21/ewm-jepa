@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Upstream V-JEPA clone (facebookresearch/jepa) and pretrained weights
+jepa/
+checkpoints/
+*.pth.tar
+*.pt
