@@ -66,7 +66,7 @@ instantiated in this repository — is in
 
 - V-JEPA **ViT-L/16** runs on the RTX 3060 (smoke test passes: 545 ms forward,
   1.41 GB peak VRAM).
-- The **whole hllset-cortex is ported into this repo** (`hllset_cortex/`:
+- The **whole hllset-cortex is ported into this repo** (`vendor/hllset_cortex/`:
   Python package + vendored Rust crate + docs + original notebooks).  The
   env builds `hllset-py` from the vendored crate and installs the local
   `hllset_cortex` editable — no external paths.
@@ -127,15 +127,15 @@ conda create -n ewm-jepa python=3.10 -y -c conda-forge
 cd /home/alexmy/SGS/SGS_lib/fractal_manifold/ewm-jepa
 /home/alexmy/.conda/envs/ewm-jepa/bin/pip install -r jepa/requirements.txt
 
-# 4. HLLSet stack — fully ported into this repo (see hllset_cortex/)
+# 4. HLLSet stack — fully ported into this repo (see vendor/hllset_cortex/)
 #    Build the Rust wheel from the vendored crate, then install the local
 #    Python package editable.  (maturin: `pip install maturin` once.)
 cd /home/alexmy/SGS/SGS_lib/fractal_manifold/ewm-jepa
 maturin build --release -q --manifest-path \
-    hllset_cortex/crates/hllset_py/Cargo.toml
+    vendor/hllset_cortex/crates/hllset_py/Cargo.toml
 /home/alexmy/.conda/envs/ewm-jepa/bin/pip install --force-reinstall \
-    hllset_cortex/crates/hllset_py/target/wheels/hllset_py-0.1.0-cp310-abi3-manylinux_2_34_x86_64.whl
-/home/alexmy/.conda/envs/ewm-jepa/bin/pip install -e hllset_cortex
+    vendor/hllset_cortex/crates/hllset_py/target/wheels/hllset_py-0.1.0-cp310-abi3-manylinux_2_34_x86_64.whl
+/home/alexmy/.conda/envs/ewm-jepa/bin/pip install -e vendor/hllset_cortex
 
 # 5. Pretrained V-JEPA ViT-L/16 checkpoint (5.1 GB; we use encoder + predictor)
 mkdir -p checkpoints
@@ -164,7 +164,7 @@ ewm-jepa/
 │   └── NARRATIVE.md       # EWM principles ↔ V-JEPA components mapping
 ├── notebooks/             # the six reproduced notebooks (see table above)
 ├── ewm_jepa/              # shared package: vjepa loader, quantizer, JEPAPipeline
-├── hllset_cortex/         # full hllset-cortex port (Python pkg + Rust crate +
+├── vendor/hllset_cortex/   # full hllset-cortex port (Python pkg + Rust crate +
 │                          #   docs + original notebooks), self-contained
 ├── scripts/
 │   ├── smoke_test_vjepa.py
