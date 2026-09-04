@@ -36,7 +36,7 @@ video ──► V-JEPA encoder ──► z (1568 × 1024, continuous)
                                 ▼  HLLSet lattice (IICA)
                      ingest ∪/∩ · gate_TF · LUT · DRN · BSS · temporal pyramid
                                 │
-                                ▼  materialize (TF-ranked, De Bruijn)
+                                ▼  materialize (n-gram disambiguation, TF tie-break)
                          restored  "tid42 tid671 ..."
                                 │
                                 ▼  dequantize (codebook centroids)

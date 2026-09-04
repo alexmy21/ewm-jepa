@@ -18,7 +18,8 @@ Two passes happen inside the lattice, mirroring hllset_cortex:
 
 1. **Gated set pass** — the tid stream is tokenized (1-, 2-, 3-grams),
    fingerprinted into an HLLSet, intersected with the gate, recorded into the
-   LUT, and materialized back to the valid tid set (TF-ranked).
+   LUT, and materialized back to the valid tid set (n-gram disambiguation
+   over the LUT candidates, with TF as the final tie-break).
 2. **Ungated De Bruijn pass** — NUL-separated bigrams keep the sequence
    topology; ``materialize_debruijn`` restores order.  The bigram HLLSet is
    deliberately *not* gated (gating would destroy the bigram topology), as in
@@ -186,7 +187,8 @@ class JEPAPipeline:
         """
         result = CortexPassResult()
 
-        # 1) Gated set pass (1-, 2-, 3-gram tokenizer, gate ∩, LUT, TF-rank).
+        # 1) Gated set pass (1-, 2-, 3-gram tokenizer, gate ∩, LUT,
+        #    n-gram disambiguation with TF tie-break).
         fres = self.filter.process_text(text)
         result.hllset = fres.hllset
         result.filtered_hllset = fres.filtered_hllset

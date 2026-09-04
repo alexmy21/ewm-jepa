@@ -160,11 +160,14 @@ gate = hllset_from_ids(range(CODEBOOK_SIZE))
 print("gate popcount:", gate.popcount())
 print("gate CID     :", gate.content_key())
 '''),
-    md('''## 4. HLLSetFilter — LUT + TF-ranked materialization
+    md('''## 4. HLLSetFilter — LUT + n-gram disambiguation (TF tie-break)
 
-The LUT accumulates TF for **every** observed tid — pre-gate, monotonic, and
-never reset.  Materialization returns the highest-TF token at each active bit
-position.  This is the Type-1 forward model of the perceptron taxonomy.'''),
+The LUT records, for every bit position, every tid that hashes there with
+its TF — pre-gate, monotonic, and never reset.  Materialization disambiguates
+the LUT candidates using n-grams (multiple measurement views of the same
+stream); TF is used only to finalize the selection when more than one token
+still maps to the same bits in the given HLLSet.  This is the Type-1 forward
+model of the perceptron taxonomy.'''),
     code('''\
 filt = HLLSetFilter()
 filt.tokenizer = encoding_tokenizer()
